@@ -56,22 +56,23 @@
       const thisProduct = this;
       console.log('new Product: , thisProduct');
     }
-  }
+  };
+
   const app = {
     initMenu: function(){
       const testProduct = new Product();
-      console.log('testProduct:', testProduct);
+      //console.log('testProduct:', testProduct);
+      console.log('thisApp.data:', thisApp.data);
+      for (let productData in thisApp.data.products){
+        new Product(productData, thisApp.data.products[productData]);
+      }
     },
 
-    init: function(){
-      const thisApp = this;
-      console.log('*** App starting ***');
-      console.log('thisApp:', thisApp);
-      console.log('classNames:', classNames);
-      console.log('settings:', settings);
-      console.log('templates:', templates);
-    
+    initData: function(){
+      const thisApp =this;
+      thisApp.data = dataSource;
+         
       thisApp.initMenu();
    },
-};
+  };
 }
