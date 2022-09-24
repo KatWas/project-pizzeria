@@ -74,3 +74,4 @@
       thisApp.initMenu();
    },
 };
+}
