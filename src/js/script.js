@@ -38,7 +38,7 @@
       wrapperActive: 'active',
       imageVisible: 'active',
     }
-  }
+  };
 
   const settings = {
     amountWidget: {
@@ -61,10 +61,10 @@
 
       thisProduct.renderInMenu();
 
-      console.log('new Product: , thisProduct');
+      console.log('new Product:', thisProduct);
     }
-
-    renderInMenu() {
+  
+    renderInMenu(){
       const thisProduct = this;
 
       /* generate HTM based on template */
@@ -82,22 +82,35 @@
   }
 
   const app = {
-    initMenu: function () {
+    initMenu: function (){
+      const thisApp = this;
       const testProduct = new Product();
-      //console.log('testProduct:', testProduct);
-      console.log('thisApp.data:', thisApp.data);
+      //console.log('thisApp.data:', thisApp.data);
       for (let productData in thisApp.data.products) {
-        new Product(productData, thisApp.data.products[productData]);
+        new Product(
+          thisApp.data.products[productData].id, 
+          thisApp.data.products[productData]
+          );
       }
     },
 
-    initData: function () {
+    initData: function (){
       const thisApp = this;
+
       thisApp.data = dataSource;
 
       thisApp.initMenu();
-    }
-
+    },
+    init: function () {
+      const thisApp = this;
+      //console.log ('*** App starting ***');
+      //console.log('thisApp:', thisApp);
+      //console.log('classNames:', classNames);
+      //console.log('settings:', settings);
+      //console.log('templates:' templates);
+      thisApp.initData();
+      thisApp.initCart();
+    },
   };
 
 }
