@@ -84,13 +84,11 @@
   const app = {
     initMenu: function (){
       const thisApp = this;
-      const testProduct = new Product();
-      //console.log('thisApp.data:', thisApp.data);
+      console.log('thisApp', thisApp);
       for (let productData in thisApp.data.products) {
         new Product(
           thisApp.data.products[productData].id, 
-          thisApp.data.products[productData]
-          );
+          thisApp.data.products[productData]);
       }
     },
 
@@ -101,13 +99,15 @@
 
       thisApp.initMenu();
     },
+
     init: function () {
       const thisApp = this;
-      //console.log ('*** App starting ***');
-      //console.log('thisApp:', thisApp);
-      //console.log('classNames:', classNames);
-      //console.log('settings:', settings);
-      //console.log('templates:' templates);
+      console.log ('*** App starting ***');
+      console.log('thisApp:', thisApp);
+      console.log('classNames:', classNames);
+      console.log('settings:', settings);
+      console.log('templates:', templates);
+
       thisApp.initData();
       thisApp.initCart();
     },
