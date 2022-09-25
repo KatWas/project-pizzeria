@@ -83,35 +83,20 @@
 
   const app = {
     initMenu: function (){
-      const thisApp = this;
-      console.log('thisApp', thisApp);
-      for (let productData in thisApp.data.products) {
-        new Product(
-          thisApp.data.products[productData].id, 
-          thisApp.data.products[productData]);
-      }
+      const testProduct = new Product();
+      console.log('testProduct:', testProduct);
     },
 
-    initData: function (){
+    init: function (){
       const thisApp = this;
-
-      thisApp.data = dataSource;
-
-      thisApp.initMenu();
-    },
-
-    init: function () {
-      const thisApp = this;
-      console.log ('*** App starting ***');
+      console.log('*** App starting ***');
       console.log('thisApp:', thisApp);
       console.log('classNames:', classNames);
       console.log('settings:', settings);
       console.log('templates:', templates);
 
-      thisApp.initData();
-      thisApp.initCart();
+      thisApp.initMenu();
     },
   };
-
 }
 
