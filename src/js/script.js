@@ -37,8 +37,8 @@
     menuProduct: {
       wrapperActive: 'active',
       imageVisible: 'active',
-    },
-  };
+    }
+  }
 
   const settings = {
     amountWidget: {
@@ -51,8 +51,9 @@
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
+
   class Product {
-    constructor(id, data){
+    constructor(id, data) {
       const thisProduct = this;
 
       thisProduct.id = id;
@@ -63,7 +64,7 @@
       console.log('new Product: , thisProduct');
     }
 
-    renderInMenu(){
+    renderInMenu() {
       const thisProduct = this;
 
       /* generate HTM based on template */
@@ -74,27 +75,30 @@
 
       /*find menu container */
       const menuContainer = document.querySelector(select.containerOf.menu);
-      
+
       /* add element to menu */
       menuContainer.appendChild(thisProduct.element);
     }
-  };
+  }
 
   const app = {
-    initMenu: function(){
+    initMenu: function () {
       const testProduct = new Product();
       //console.log('testProduct:', testProduct);
       console.log('thisApp.data:', thisApp.data);
-      for (let productData in thisApp.data.products){
+      for (let productData in thisApp.data.products) {
         new Product(productData, thisApp.data.products[productData]);
       }
     },
 
-    initData: function(){
-      const thisApp =this;
+    initData: function () {
+      const thisApp = this;
       thisApp.data = dataSource;
-         
+
       thisApp.initMenu();
-   },
+    }
+
   };
+
 }
+
