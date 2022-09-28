@@ -209,22 +209,46 @@
         thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
       } 
 
-      class AmountWidget{
+      class AmountWidget {
         constructor(element){
           const thisWidget = this;
           thisWidget.getElements(element);
 
           //console.log('AmountWidget:', thisWidget);
           //console.log('constructor arguments:', element);
+          thisWidget.setValue (thisWidget.input.value || settings.amountWidget.defaultValue);
+          thisWidget.initActions (); 
         }
       }
-      getElements(element);{
+        getElements(element);{
         const thisWidget = this;
       
         thisWidget.element = element;
         thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
         thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
         thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+      }
+      setValue(value);{
+        const thisWidget = this;
+        
+        const newValue = parseInt(value);
+
+        /* TODO:Add validation*/
+
+        if (thisWidget.value !== newValue){
+        thisWidget.value = newValue;
+        } else {
+          if(isNaN(newValue)) thisWidget.value == newValue;
+        }
+        const newValue = parseInt(value);
+        if ( thisWidget.value !== newValue && !isNaN(newValue) &&
+        newValue >= settings.amountWidget.defaultMin &&
+        newValue <= settings.amountWidget.defaultMax
+        ) {
+
+
+        }
+        }
       }
       const app = {
     
@@ -257,4 +281,4 @@
         },
       };
     }
-  }
+  
