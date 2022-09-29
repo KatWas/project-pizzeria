@@ -207,6 +207,9 @@
     initAmountWidget();{
         const thisProduct = this;
         thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+        thisProduct.amountWidgetElem.addEventListener('updated', function(){
+          thisProduct.processOrder();
+        });
       } 
 
       class AmountWidget {
@@ -230,26 +233,37 @@
       }
       setValue(value);{
         const thisWidget = this;
-        
-        const newValue = parseInt(value);
-
+       
         /* TODO:Add validation*/
 
-        if (thisWidget.value !== newValue){
+      if (thisWidget.value !== newValue) {
         thisWidget.value = newValue;
-        } else {
-          if(isNaN(newValue)) thisWidget.value == newValue;
-        }
-        const newValue = parseInt(value);
-        if ( thisWidget.value !== newValue && !isNaN(newValue) &&
+      } else {
+        if (isNaN(newValue)) thisWidget.value == newValue;
+      }
+      const newValue = parseInt(value);
+      if (thisWidget.value !== newValue && !isNaN(newValue) &&
         newValue >= settings.amountWidget.defaultMin &&
         newValue <= settings.amountWidget.defaultMax
-        ) {
-
-
-        }
-        }
+      ) {
+        thisWidgetvalue = newValue;
       }
+      thisWidget.input.value = thisWidgetvalue;
+      thisWidget.announce();
+      //settings.amountWidget.defaultMax
+    }
+    
+    
+    announce(){
+      const thisWidget = this;
+
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
+    }
+      
+      
+      }
+
       const app = {
     
     initMenu: function () {
