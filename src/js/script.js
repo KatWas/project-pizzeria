@@ -198,7 +198,7 @@
         }
       }
       thisProduct.priceSingle = price;
-      //multuply price by amount
+      //multiply price by amount
       price *= thisProduct.amountWidget.value;
 
       // update calculated price in the HTML
@@ -254,7 +254,7 @@
     }
     
     
-    announce(){
+    announce();{
       const thisWidget = this;
 
       const event = new Event('updated');
