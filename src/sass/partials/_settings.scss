@@ -40,11 +40,19 @@ $base-size: 12px;
     background: lighten($btn-bg, 3%);
   }
 
+<<<<<<< HEAD
+=======
+  // CODE ADDED START
+>>>>>>> 428bb463ed62604d962221ac6c075d5ca309ba54
   &.disabled, &[disabled] {
     background: desaturate($btn-bg, 100%);
     border-color: desaturate($btn-border, 100%);
     cursor: not-allowed;
   }
+<<<<<<< HEAD
+=======
+  // CODE ADDED END
+>>>>>>> 428bb463ed62604d962221ac6c075d5ca309ba54
 }
 
 @mixin flex($flex-direction, $align-items, $justify-content) {
