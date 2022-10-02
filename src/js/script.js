@@ -65,6 +65,7 @@
       thisProduct.initOrderForm();
       thisProduct.initAmountWidget();
       thisProduct.processOrder();
+      thisProduct.prepareCartProductParams();
 
       //console.log('new Product:', thisProduct);
     }
@@ -110,7 +111,7 @@
         /* find active product (product that has active class) */
         const findActiveProduct = document.querySelector(
           select.all.menuProductsActive);
-        console.log('find active' + findActiveProduct);
+        //console.log('find active' + findActiveProduct);
 
         /* if there is active product and it's not thisProduct.element, remove class active from it */
 
@@ -274,8 +275,32 @@
       thisWidget.element.dispatchEvent(event);
     }
 
-
   }
+
+  class Cart{
+    constructor(element) {
+      const thisCart = this;
+
+      thisCart.products = [];
+
+      thisCart.getElements(element);
+      thisCart.initActions();
+
+      //console.log('new Cart', thisCart);
+
+    }
+
+    getElements(element) {
+      const thisCart = this;
+
+      thisCart.dom = {};
+
+      thisCart.dom.wrapper = element;
+      thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+
+    }
+  }
+
 
   const app = {
 
@@ -304,7 +329,13 @@
       //console.log('templates:', templates);
 
       thisApp.initData();
-      thisApp.initMenu();
+      thisApp.initCart();
+    },
+    initCart : function (){
+      const thisApp = this;
+
+      const cartElem = document.querySelector(select.containerOf.cart);
+      thisApp.cart = new Cart(cartElem);
     },
   };
   app.init();
