@@ -330,7 +330,7 @@
       thisCart.getElements(element);
       thisCart.initActions();
     }
-    
+
     getElements(element) {
       const thisCart = this;
 
@@ -346,7 +346,7 @@
       thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
       thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.car.phone);
       thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
-      
+
     }
 
     initActions() {
@@ -354,13 +354,13 @@
       thisCart.dom.toggleTrigger.addEventListener('click', function () {
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
-      thisCart.dom.productList.addEventListener('updated', function (){
+      thisCart.dom.productList.addEventListener('updated', function () {
         thisCart.update();
       });
-      thisCart.dom.productList.addEventListener('remove', function (event){
+      thisCart.dom.productList.addEventListener('remove', function (event) {
         thisCart.remove(event.detail.cartProduct);
       });
-      thisCart.dom.form.addEventListener('submit', function (event){
+      thisCart.dom.form.addEventListener('submit', function (event) {
         event.preventDefault();
         thisCart.sendOrder();
       });
@@ -383,24 +383,20 @@
       let totalNumber = 0;
       let subtotalPrice = 0;
 
-      for ( let product of thisCart.products){
+      for (let product of thisCart.products) {
         totalNumber += product.amount;
         subtotalPrice += product.price;
-        }
-      thisCart.totalPrice = subtotalPrice +deliveryFee;
+      }
+      thisCart.totalPrice = subtotalPrice + deliveryFee;
       //console.log('totalprice:', thisCart.totalPrice);
       thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
       thisCart.dom.deliveryFee.innerHTML = deliveryFee;
       thisCart.dom.totalNumber.innerHTML = totalNumber;
-      for (let total of thisCart.dom.totalPrice){
+      for (let total of thisCart.dom.totalPrice) {
         total.innerHTML = thisCart.totalPrice;
       }
     }
-    remove(cartProduct){
-      const thisCart = this;
-    thisCart.update();  
-    }
-
+    
   }
   class cartProduct {
     constructor(menuProduct, element) {
@@ -439,17 +435,18 @@
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
       });
     }
-    
-    }
   }
+
   const app = {
 
     initMenu: function () {
       const thisApp = this;
       //console.log('thisApp.data:', thisApp.data);
       for (let productData in thisApp.data.products) {
-        new Product(productData, thisApp.data.products[productData]
-          );
+        new Product(
+          thisApp.data.products[productData].id,
+          thisApp.data.products[productData]
+        );
       }
     },
 
@@ -461,7 +458,7 @@
 
     init: function () {
       const thisApp = this;
-      
+
       thisApp.initData();
       thisApp.initCart();
     },
@@ -472,8 +469,7 @@
       const cartElem = document.querySelector(select.containerOf.cart);
       thisApp.cart = new Cart(cartElem);
     },
-  }
+  };
 
   app.init();
 }
-
