@@ -31,30 +31,65 @@
         linkIncrease: 'a[href="#more"]',
       },
     },
+    //CODE ADDED START
+    cart: {
+      productList: '.cart__order-summary',
+      toggleTrigger: '.cart__summary',
+      totalNumber: '.cart__total-numer',
+      totalPrice: '.cart__total-price strong, .cart__order-total .cart__order-price-sum strong',
+      subtotalPrice: '.cart__order-subtotal .cart__order-price-sum strong',
+      deliveryFee: '.cart__order-delivery .cart__order-price-sum strong',
+      form: '.cart__order',
+      formSubmit:'.cart__order[type="submit"]',
+      phone: '[name="address"]',
+    },
+    cartProduct: {
+      amountWidget: '.widget-amount',
+      price: '.cart__product-price',
+      edit: '[href="#edit"]',
+      remove: '[href="#remove"]',
+    },
+    //CODE ADDED END
   };
 
   const classNames = {
     menuProduct: {
       wrapperActive: 'active',
       imageVisible: 'active',
-    }
+    },
+
+    //CODE ADDED START
+    cart: {
+      wrapperActive: 'active',
+    },
+    //CODE ADDED END
   };
 
   const settings = {
     amountWidget: {
       defaultValue: 1,
-      defaultMin: 1,
-      defaultMax: 9,
+      defaultMin: 0,
+      defaultMax: 10,
+    },
+    //CODE CHANGED
+    //CODE ADDED START
+    cart: {
+      defaultDeliveryFee: 20,
     },
     db: {
       url: '//localhost:3131',
       products: 'products',
       orders: 'orders',
     },
+    //Code ADDED END
   };
 
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
+    //CODE ADDED START
+    cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
+    //CODE END
+
   };
 
   class Product {
@@ -255,7 +290,6 @@
       }
       return params;
     }
-
   }
   class AmountWidget {
     constructor(element) {
@@ -350,10 +384,9 @@
       thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
       thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.car.phone);
       thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
-
     }
 
-    initActions() {
+    initAction() {
       const thisCart = this;
       thisCart.dom.toggleTrigger.addEventListener('click', function () {
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
@@ -434,7 +467,7 @@
       fetch(url, options)
         .then(function (response){
           return response.json();
-        });
+        })
         .then(function (parsedResponse){
           console.log('parsedResponse:', parsedResponse);
         });
