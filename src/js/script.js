@@ -105,7 +105,7 @@
       thisProduct.initOrderForm();
       thisProduct.initAmountWidget();
       thisProduct.processOrder();
-      thisProduct.prepareCartProductParams();
+      thisProduct.prepareCartProductParam();
 
       //console.log('new Product:', thisProduct);
     }
@@ -559,6 +559,7 @@
           thisApp.data.products[productData]
         );
       }
+      thisApp.initMenu();
     },
 
     initCart: function () {
@@ -592,6 +593,7 @@
 
       thisApp.initData();
       thisApp.initCart();
+      
     },
   };
 
