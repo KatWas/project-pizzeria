@@ -559,7 +559,6 @@
           thisApp.data.products[productData]
         );
       }
-      thisApp.initMenu();
     },
 
     initCart: function () {
@@ -582,7 +581,7 @@
         .then(function(parsedResponse) {
           console.log('parsedResponse', parsedResponse);
           /*save parsedResponse as thisApp.data.products*/
-
+          thisApp.initMenu();
           /*execute initMenu method */
         });
       console.log('thisApp.data', JSON.stringify(thisApp.data));
