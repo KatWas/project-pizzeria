@@ -478,20 +478,20 @@
     update() {
       const thisCart = this;
       let deliveryFee = settings.cart.defaultDeliveryFee;
-      let totalNumber = 0;
-      let subtotalPrice = 0;
+      thisCart.totalNumber = 0;
+      thisCart.subtotalPrice = 0;
 
       for (let product of thisCart.products) {
-        totalNumber += product.amount;
-        subtotalPrice += product.price;
+        thisCart.totalNumber += product.amount;
+        thisCart.subtotalPrice += product.price;
         // console.log(product);
       }
-      thisCart.totalPrice = subtotalPrice + deliveryFee;
+      thisCart.totalPrice = thisCart.subtotalPrice + deliveryFee;
       //console.log('totalPrice:', thisCart.totalPrice);
 
-      thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
-      thisCart.dom.deliveryFee.innerHTML = deliveryFee;
-      thisCart.dom.totalNumber.innerHTML = totalNumber;
+      thisCart.dom.subtotalPrice.innerHTML = thisCart.subtotalPrice;
+      thisCart.dom.deliveryFee.innerHTML = thisCart.totalNumber === 0 ? 0 : deliveryFee;
+      thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
       for (let total of thisCart.dom.totalPrice) {
         total.innerHTML = thisCart.totalPrice;
       }
