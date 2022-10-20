@@ -2,10 +2,13 @@ export const select = {
     templateOf: {
       menuProduct: '#template-menu-product',
       cartProduct: '#template-cart-product', // CODE ADDED
+      bookingWidget: '#template-booking-widget',
     },
     containerOf: {
       menu: '#product-list',
       cart: '#cart',
+      ages: '#pages',
+      booking: '.booking-wraper',
     },
     all: {
       menuProducts: '#product-list > .product',
@@ -25,8 +28,27 @@ export const select = {
         input: 'input.amount', // CODE CHANGED
         linkDecrease: 'a[href="#less"]',
         linkIncrease: 'a[href="#more"]',
+        
+      datePicker: {
+          wrapper: '.date-picker',
+          input: `input[name="date"]`,
+      },
+      hourPicker: {
+          wrapper: '.hour-picker',
+          input: 'input[type="range"]',
+          output: '.output',
       },
     },
+       booking: {
+          peopleAmount: '.people-amount',
+          hoursAmount: '.hours-amount',
+          tables: '.floor-plan .table',
+    },
+       nav: {
+          links: '.main-nav a',
+   },
+},    
+    
     // CODE ADDED START
     cart: {
       productList: '.cart__order-summary',
@@ -48,6 +70,8 @@ export const select = {
       remove: '[href="#remove"]',
     },
     // CODE ADDED END
+    
+            
   };
 
 export const classNames = {
@@ -61,6 +85,16 @@ export const classNames = {
       wrapperActive: 'active',
     },
     // CODE ADDED END
+    booking: {
+      loading: 'loading',
+      tableBooked: 'booked',
+  },
+  nav: {
+      active: 'active',
+  },
+  pages: {
+      active: 'active',
+  }
   };
   //  console.log(classNames);
 
@@ -81,7 +115,29 @@ export const settings = {
     },
 
     // CODE ADDED END
-  };
+    hours: {
+      open: 12,
+      close: 24,
+    },
+    datePicker: {
+      maxDaysInFuture: 14,
+    },
+    booking: {
+      tableIdAttribute: 'data-table',
+    },
+    db: {
+      
+      url: '//localhost:3131',
+      product: 'product',
+      order: 'order',
+      booking: 'booking',
+      event: 'event',
+      dateStartParamKey: 'date_gte',
+      dateEndParamKey: 'date_lte',
+      notRepeatParam: 'repeat=false',
+      repeatParam: 'repeat_ne=false',
+  },
+};
 
 export const templates = {
     menuProduct: Handlebars.compile(
@@ -91,5 +147,10 @@ export const templates = {
     cartProduct: Handlebars.compile(
       document.querySelector(select.templateOf.cartProduct).innerHTML
     ),
+    bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML
+    ),
     // CODE ADDED END
-  };
+  
+};
+
+  
