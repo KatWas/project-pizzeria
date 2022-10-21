@@ -27,25 +27,17 @@ class AmountWidget extends BaseWidget{
     );
   }
 
-  setValue(value) {
-    const thisWidget = this;
-
-    const newValue = thisWidget.parseValue(value);
-    if ( newValue != thisWidget.value && thisWidget.isValid(newValue)) {
-      thisWidget.value = newValue; 
-      thisWidget.announce();
-    }
-    thisWidget.dom.input.value = thisWidget.value;
-  }
-
-  parseValue(value){
-    return parseInt(value);
-  }
-
   isValid(value){
     return !isNaN(value)
     && value >= settings.amountWidget.defaultMin 
     && value <= settings.amountWidget.defaultMax;
+  }
+
+  renderValue(){
+    const thisWidget = this;
+
+    thisWidget.dom.input.value = thisWidget.value;
+
   }
 
   initActions() {
