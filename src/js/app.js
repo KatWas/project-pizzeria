@@ -99,10 +99,10 @@ const app = {
     // console.log('templates:', templates);
 
     thisApp.initPages();
-    thisApp.initBooking();
-
     thisApp.initData();
     thisApp.initCart();
+    thisApp.initBooking();
+
   },
 
   initCart: function () {
