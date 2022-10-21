@@ -1,9 +1,12 @@
  import {settings, select, classNames} from './settings.js';
  import Product from './components/Product.js';
  import Cart from './components/Cart.js';
+ import Booking from './components/booking.js';
 
 
  const app = {
+
+    
     initPages:function(){
         const thisApp = this;
 
@@ -43,7 +46,7 @@
         
     },
     activatePage: function (pageId){
-      const thisApp= this;
+      const thisApp = this;
 
       /* add class "active" to matching pages, remove from non-matching*/
       for (let page of thisApp.pages){
@@ -96,6 +99,7 @@
       // console.log('templates:', templates);
 
       thisApp.initPages();
+      thisApp.initBooking();
 
       thisApp.initData();
       thisApp.initCart();
@@ -113,5 +117,12 @@
         app.cart.add(event.detail.product);
       });
     },
-  };
+
+  initBooking: function(){
+    const thisApp = this;
+
+    const bookingContainer = document.querySelector(select.containerOf.booking);
+    thisApp.booking= new Booking(bookingContainer);
+  },
+};
   app.init();
