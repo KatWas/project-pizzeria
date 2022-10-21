@@ -1,28 +1,28 @@
 import { settings, select} from '../settings.js';
+import BaseWidget from './BaseWidget.js';
 
-class AmountWidget {
+class AmountWidget extends BaseWidget{
   constructor(element) {
+    super (element, settings.amountWidget.defaultValue);
+
     const thisWidget = this;
     thisWidget.getElements(element);
     //console.log('AmountWidget:', thisWidget);
     //console.log('consrucrot argument:', element);
-    thisWidget.setValue(
-      thisWidget.input.value || settings.amountWidget.defaultValue
-    );
+    
     thisWidget.initActions();
   }
 
-  getElements(element) {
+  getElements() {
     const thisWidget = this;
 
-    thisWidget.element = element;
-    thisWidget.input = thisWidget.element.querySelector(
+    thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(
       select.widgets.amount.input
     );
-    thisWidget.linkDecrease = thisWidget.element.querySelector(
+    thisWidget.dom.linkDecrease = thisWidget.dom.wrapper.querySelector(
       select.widgets.amount.linkDecrease
     );
-    thisWidget.linkIncrease = thisWidget.element.querySelector(
+    thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(
       select.widgets.amount.linkIncrease
     );
   }
@@ -30,43 +30,34 @@ class AmountWidget {
   setValue(value) {
     const thisWidget = this;
 
-    // console.log(thisWidget.value, 'thisssssssssssssssssss');
-
-    /* czy mogłem to tak zapisac!!!!!!!!!!!!!!!
-      const newValue = parseInt(value);
-      if (thisWidget.value !== newValue) {
-        thisWidget.value == newValue;
-      } else {
-        if (isNaN(newValue)) thisWidget.value == newValue;
-      }
-      */
-    const newValue = parseInt(value);
-    if (
-      thisWidget.value !== newValue &&
-        !isNaN(newValue) &&
-        newValue >= settings.amountWidget.defaultMin &&
-        newValue <= settings.amountWidget.defaultMax
-    ) {
-      thisWidget.value = newValue; // on mi ustawia wartoś inpouta
-      // console.log(thisWidget.value, 'this value');
+    const newValue = thisWidget.parseValue(value);
+    if ( newValue != thisWidget.value && thisWidget.isValid(newValue)) {
+      thisWidget.value = newValue; 
+      thisWidget.announce();
     }
-    thisWidget.input.value = thisWidget.value;
-    thisWidget.announce();
-    //settings.amountWidget.defaultMax
+    thisWidget.dom.input.value = thisWidget.value;
+  }
+
+  parseValue(value){
+    return parseInt(value);
+  }
+
+  isValid(value){
+    return newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax
   }
 
   initActions() {
     const thisWidget = this;
 
-    thisWidget.input.addEventListener('change', function () {
-      thisWidget.setValue(thisWidget.input.value);
+    thisWidget.dom.input.addEventListener('change', function () {
+      thisWidget.setValue(thisWidget.dom.input.value);
     });
-    thisWidget.linkDecrease.addEventListener('click', function (event) {
+    thisWidget.dom.linkDecrease.addEventListener('click', function (event) {
       event.preventDefault();
       thisWidget.setValue(thisWidget.value - 1);
     });
 
-    thisWidget.linkIncrease.addEventListener('click', function (event) {
+    thisWidget.dom.linkIncrease.addEventListener('click', function (event) {
       event.preventDefault;
       thisWidget.setValue(thisWidget.value + 1);
     });
@@ -77,7 +68,7 @@ class AmountWidget {
     const event = new CustomEvent('updated', {
       bubbles: true,
     });
-    thisWidget.element.dispatchEvent(event);
+    thisWidget.dom.wrapper.dispatchEvent(event);
   }
 }
 export default AmountWidget;
