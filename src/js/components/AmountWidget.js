@@ -1,4 +1,4 @@
-import { settings, select} from '../settings.js';
+import {settings, select} from '../settings.js';
 import BaseWidget from './BaseWidget.js';
 
 class AmountWidget extends BaseWidget{
@@ -44,7 +44,8 @@ class AmountWidget extends BaseWidget{
     const thisWidget = this;
 
     thisWidget.dom.input.addEventListener('change', function () {
-      thisWidget.setValue(thisWidget.dom.input.value);
+      //thisWidget.setValue(thisWidget.dom.input.value);
+      thisWidget.value = thisWidget.dom.input.value;
     });
     thisWidget.dom.linkDecrease.addEventListener('click', function (event) {
       event.preventDefault();
@@ -57,12 +58,6 @@ class AmountWidget extends BaseWidget{
     });
   }
 
-  announce() {
-    const thisWidget = this;
-    const event = new CustomEvent('updated', {
-      bubbles: true,
-    });
-    thisWidget.dom.wrapper.dispatchEvent(event);
-  }
+ 
 }
 export default AmountWidget;

@@ -8,17 +8,30 @@ class BaseWidget{
     thisWidget.value = initialValue;
 
   }
-  setValue(value) {
+
+  get value(){
+    const thisWidget = this;
+
+    return thisWidget.correctValue;
+  }
+  set value(value) {
     const thisWidget = this;
 
     const newValue = thisWidget.parseValue(value);
-    if ( newValue != thisWidget.value && thisWidget.isValid(newValue)) {
-      thisWidget.value = newValue; 
+    if (newValue != thisWidget.correctValue && thisWidget.isValid(newValue)) {
+      thisWidget.correctValue = newValue; 
       thisWidget.announce();
     }
 
     thisWidget.renderValue();
   }
+
+  setValue(value){
+    const thisWidget = this;
+
+    thisWidget.value = value;
+  }
+  
   parseValue(value){
     return parseInt(value);
   }
