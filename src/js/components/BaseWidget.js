@@ -1,9 +1,9 @@
-class BaseWidget {
-  constructor (wrraperElement, initialValue){
+class BaseWidget{
+  constructor (wrapperElement, initialValue){
     const thisWidget = this;
 
     thisWidget.dom = {};
-    thisWidget.dom.wrapper = wrraperElement;
+    thisWidget.dom.wrapper = wrapperElement;
 
     thisWidget.value = initialValue;
 
@@ -25,6 +25,19 @@ class BaseWidget {
 
   isValid(value){
     return !isNaN(value);
+  }
+  renderValue(){
+    const thisWidget = this;
+
+    thisWidget.dom.wrapper.innerHTML = thisWidget.value;
+
+  }
+  announce() {
+    const thisWidget = this;
+    const event = new CustomEvent('updated', {
+      bubbles: true,
+    });
+    thisWidget.dom.wrapper.dispatchEvent(event);
   }
 }
 
