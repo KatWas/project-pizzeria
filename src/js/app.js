@@ -2,9 +2,6 @@ import {settings, select, classNames} from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
-import DatePicker from './components/Classes/DatePicker.js';
-import HourPicker from './components/Classes/HourPicker.js';
-
 
 const app = {
 
