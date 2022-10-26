@@ -4,6 +4,7 @@ import DatePicker from './DatePicker.js';
 import HourPicker from './HourPicker.js';
 
 
+
 class Booking {
   constructor(element) {
     const thisBooking = this;
@@ -46,13 +47,13 @@ class Booking {
     thisBooking.dom.hoursAmount.addEventListener('click', function () {});
 
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
-    thisBooking.dom.hoursPicker.addEventListener('click', function () {});
+    thisBooking.dom.hourPicker.addEventListener('click', function () {});
 
-    thisBooking.datePicker = new DatePicker(thisBooking.dom.DatePicker);
+    thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
     thisBooking.dom.datePicker.addEventListener('click', function () {});
    
   }
-  
+
 }
 
 export default Booking;
