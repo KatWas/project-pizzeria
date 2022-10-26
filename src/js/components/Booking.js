@@ -30,27 +30,32 @@ class Booking {
         settings.db.notRepeatParam,
         startDateParam,
         endDateParam,
-            
-
       ],
       eventsRepeat:[
         settings.db.repeatParam,
         endDateParam,
-        
-
+       
       ],
     };
-    console.log('getData params', params);
+    //console.log('getData params', params);
 
     const urls = {
-      booking:       settings.db.url + '/' + settings.db.booking 
+      booking:       settings.db.url + '/' + settings.db.bookings 
                                      + '?' + params.booking.join('&'), 
-      eventsCurrent: settings.db.url + '/' + settings.db.event   
+      eventsCurrent: settings.db.url + '/' + settings.db.events   
                                      + '?' + params.eventsCurrent.join('&'),
-      eventsRepeat:  settings.db.url + '/' + settings.db.event   
+      eventsRepeat:  settings.db.url + '/' + settings.db.events   
                                      + '?' + params.eventsRepeat.join('&'),
     };
+    //console.log('getData urls', urls);
 
+    fetch(urls.bookings)
+      .then(function(bookingsResponse){
+        return bookingsResponse.json();
+      })
+      .then(function(bookings){
+        console.log(bookings);
+      });
   }
 
   render(element) {
