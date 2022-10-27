@@ -64,12 +64,12 @@ class Booking {
           eventsRepeatResponse.json(),
         ]);
       })
-      .then(function([bookings, eventsCurrent, eventsRepeat]){
+      .then(function([booking, eventsCurrent, eventsRepeat]){
 
         //console.log(bookings);
         //console.log(eventsCurrent);
         //console.log(eventsRepeat);
-        thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
+        thisBooking.parseData(booking, eventsCurrent, eventsRepeat);
       });
   }
 
@@ -78,27 +78,39 @@ class Booking {
 
     thisBooking.booked = {};
 
+    for(let item of bookings){
+      thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
+    }
     for(let item of eventsCurrent){
       thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
     }
-console.log('thisBooking.booked', thisBooking.booked);
-
+    for(let item of eventsRepeat){
+      thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
+    }
+    console.log('thisBooking.booked', thisBooking.booked);
+     
   }
 
   makeBooked(date, hour, duration, table){
     const thisBooking = this;
 
-      if(typeOf thisBooking.booked[date] == 'undefined'){
-        thisBooking.booked[date] = {};
-      }
+    if(typeof thisBooking.booked[date] == 'undefined'){
+      thisBooking.booked[date] = {};
+    }
 
-      const startHour = utils.hourToNumber(hour);
-
-      if(typeOf thisBooking.booked[date] [startHour] == 'undefined'){
-        thisBooking.booked[date] [startHour] = [];
-      }
+    const startHour = utils.hourToNumber(hour);
+      
+   
+    for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5){
+      // console.log('loop', hourBlock);
+          
+      if(typeof thisBooking.booked[date][hourBlock] == 'undefined'){
+        thisBooking.booked [date][hourBlock] = [];
+      } 
     
-    thisBooking.booked[date][hour].push(table);
+    
+      thisBooking.booked[date][hourBlock].push(table);
+    }
   }
 
   render(element) {
