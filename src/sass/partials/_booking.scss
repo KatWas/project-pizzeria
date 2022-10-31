@@ -198,7 +198,7 @@
     @include flex(row, flex-start, space-between);
     margin: ($base-size * 4) auto;
   }
-  &.selected {
+  .selected {
     cursor: not-allowed;
     color: lighten($color-dark, 70%);
     border: 10px;
