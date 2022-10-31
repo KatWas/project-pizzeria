@@ -64,16 +64,16 @@ class Booking {
           eventsRepeatResponse.json(),
         ]);
       })
-      .then(function([bookings, eventsCurrent, eventsRepeat]){
+      .then(function([booking, eventsCurrent, eventsRepeat]){
 
         //console.log(bookings);
         //console.log(eventsCurrent);
         //console.log(eventsRepeat);
-        thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
+        thisBooking.parseData(booking, eventsCurrent, eventsRepeat);
       });
   }
 
-  parseData(bookings, eventsCurrent, eventsRepeat){
+  parseData(booking, eventsCurrent, eventsRepeat){
     const thisBooking = this;
 
     thisBooking.booked = {};
@@ -138,8 +138,8 @@ class Booking {
       allAvailable = true;
     }
     for(let table of thisBooking.dom.tables){
-      let tableId = table.getAttribute(settings.bookings.tableIdAttribute);
-      if(!isNaN(tableId)){
+      let tableId = table.getAttribute(settings.booking.tableIdAttribute);
+      if(isNaN(tableId)){
         tableId = parseInt(tableId);
       }
 
