@@ -13,7 +13,11 @@ class Booking {
     thisBooking.render(element);
     thisBooking.initWidget();
     thisBooking.getData();
+    thisBooking.parseData();
+    thisBooking.makeBooked();
+    thisBooking.updateDOM();
     thisBooking.selected();
+
   }
   getData(){
     const thisBooking = this;
