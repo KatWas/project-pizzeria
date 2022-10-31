@@ -1,5 +1,5 @@
 import { select, settings, templates, classNames } from '../settings.js';
-import utils from '../utils';
+import {utils} from '../utils.js';
 import AmountWidget from './AmountWidget.js';
 import DatePicker from './DatePicker.js';
 import HourPicker from './HourPicker.js';
@@ -42,9 +42,9 @@ class Booking {
     const urls = {
       booking:       settings.db.url + '/' + settings.db.booking 
                                      + '?' + params.booking.join('&'), 
-      eventsCurrent: settings.db.url + '/' + settings.db.events   
+      eventsCurrent: settings.db.url + '/' + settings.db.event   
                                      + '?' + params.eventsCurrent.join('&'),
-      eventsRepeat:  settings.db.url + '/' + settings.db.events   
+      eventsRepeat:  settings.db.url + '/' + settings.db.event   
                                      + '?' + params.eventsRepeat.join('&'),
     };
     //console.log('getData urls', urls);
@@ -64,12 +64,12 @@ class Booking {
           eventsRepeatResponse.json(),
         ]);
       })
-      .then(function([booking, eventsCurrent, eventsRepeat]){
+      .then(function([bookings, eventsCurrent, eventsRepeat]){
 
         //console.log(bookings);
         //console.log(eventsCurrent);
         //console.log(eventsRepeat);
-        thisBooking.parseData(booking, eventsCurrent, eventsRepeat);
+        thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
       });
   }
 
@@ -138,8 +138,8 @@ class Booking {
       allAvailable = true;
     }
     for(let table of thisBooking.dom.tables){
-      let tableId = table.getAttribute(settings.booking.tableIdAttribute);
-      if(!isNan(tableId)){
+      let tableId = table.getAttribute(settings.bookings.tableIdAttribute);
+      if(!isNaN(tableId)){
         tableId = parseInt(tableId);
       }
 
