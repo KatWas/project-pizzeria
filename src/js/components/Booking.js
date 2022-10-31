@@ -64,16 +64,16 @@ class Booking {
           eventsRepeatResponse.json(),
         ]);
       })
-      .then(function([booking, eventsCurrent, eventsRepeat]){
+      .then(function([bookings, eventsCurrent, eventsRepeat]){
 
         //console.log(bookings);
         //console.log(eventsCurrent);
         //console.log(eventsRepeat);
-        thisBooking.parseData(booking, eventsCurrent, eventsRepeat);
+        thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
       });
   }
 
-  parseData(booking, eventsCurrent, eventsRepeat){
+  parseData(bookings, eventsCurrent, eventsRepeat){
     const thisBooking = this;
 
     thisBooking.booked = {};
