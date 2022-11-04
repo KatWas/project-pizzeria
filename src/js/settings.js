@@ -43,6 +43,8 @@ export const select = {
     peopleAmount: '.people-amount',
     hoursAmount: '.hours-amount',
     tables: '.floor-plan .table',
+    allTables: '.floor-plan',
+    form: '.booking-form'
   },
   nav: {
     links: '.main-nav a',
@@ -80,6 +82,7 @@ export const classNames = {
   booking: {
     loading: 'loading',
     tableBooked: 'booked',
+    tableSelected: 'selected',
   },
   nav: {
     active: 'active',
@@ -100,11 +103,10 @@ export const settings = {
   },
   db: {
     url: '//localhost:3131',
-    product: 'product',
     products: 'products',
-    order: 'order',
-    booking: 'booking',
-    event: 'event',
+    orders: 'orders',
+    bookings: 'bookings',
+    events: 'events',
     dateStartParamKey: 'date_gte',
     dateEndParamKey: 'date_lte',
     notRepeatParam: 'repeat=false',
@@ -133,4 +135,3 @@ export const templates = {
     document.querySelector(select.templateOf.bookingWidget).innerHTML
   ),
 };
-  

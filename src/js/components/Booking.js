@@ -11,13 +11,10 @@ class Booking {
     const thisBooking = this;
 
     thisBooking.render(element);
-    thisBooking.initWidget();
+    thisBooking.initWidgets();
     thisBooking.getData();
-    thisBooking.parseData();
-    thisBooking.makeBooked();
-    thisBooking.updateDOM();
-    thisBooking.tableSelected();
 
+    thisBooking.tableSelected = null;
   }
   getData(){
     const thisBooking = this;
@@ -45,11 +42,11 @@ class Booking {
     //console.log('getData params', params);
 
     const urls = {
-      booking:       settings.db.url + '/' + settings.db.booking 
+      booking:       settings.db.url + '/' + settings.db.bookings
                                      + '?' + params.booking.join('&'), 
-      eventsCurrent: settings.db.url + '/' + settings.db.event   
+      eventsCurrent: settings.db.url + '/' + settings.db.events  
                                      + '?' + params.eventsCurrent.join('&'),
-      eventsRepeat:  settings.db.url + '/' + settings.db.event   
+      eventsRepeat:  settings.db.url + '/' + settings.db.events   
                                      + '?' + params.eventsRepeat.join('&'),
     };
     //console.log('getData urls', urls);
@@ -60,9 +57,9 @@ class Booking {
       fetch(urls.eventsRepeat),
     ])      
       .then(function(allResponse){
-        const bookingsResponse = allResponse [0];
-        const eventsCurrentResponse = allResponse [1];
-        const eventsRepeatResponse = allResponse [2];
+        const bookingsResponse = allResponse[0];
+        const eventsCurrentResponse = allResponse[1];
+        const eventsRepeatResponse = allResponse[2];
         return Promise.all([
           bookingsResponse.json(),
           eventsCurrentResponse.json(),
@@ -159,31 +156,33 @@ class Booking {
       }
     }
   }
-  initTables(event) {
+  initTables(table) {
     const thisBooking = this;
 
-    /*NEW find cliked element*/
-    const clickedElement = event.target;
-    event.preventDefult();
+    const tableId = table.getAttribute('data-id');
 
-    /*NEW if a table was clked */
-    if(tableId){
-      /*if table is already booked-show alert*/
-      if(clickedElement.classList.contains(classNames.booking.tableBooked)){
-        alert('Ten stolik jest zajęty');
-        /*if it's not booked*/
-      }else{
-        /* for every table -if it contains class selected and it's not a cliked element-remove class selected*/
-        for(const table of thisBooking.dom.tables){
-          if(table.classList.contains(classNames.booking.tableSelected) && table !== clickedElement){
-            table.classList.remove(classNames.booking.tableSelected);
-          }
+    /*if table is already booked-show alert*/
+    if(table.classList.contains(classNames.booking.tableBooked)){
+      alert('Ten stolik jest zajęty');
+      /*if it's not booked*/
+    }else{
+      /* for every table -if it contains class selected and it's not a cliked element-remove class selected*/
+      for(const t of thisBooking.dom.tables){
+        if(t.classList.contains(classNames.booking.tableSelected) && t !== table){
+          t.classList.remove(classNames.booking.tableSelected);
         }
-        /*other way-the table is selected-add class selected*/
+      }
+
+      /*other way-the table is selected-add class selected*/
+      if (table.classList.contains(classNames.booking.tableSelected)) {
+        table.classList.remove(classNames.booking.tableSelected);
+        thisBooking.tableSelected = null;
+      } else {
         thisBooking.tableSelected = tableId;
-        clickedElement.classList.add(classNames.booking.tableSelected);
+        table.classList.add(classNames.booking.tableSelected);
       }
     }
+
   }
 
   render(element){
@@ -206,7 +205,7 @@ class Booking {
     thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
     thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
     thisBooking.dom.starters = thisBooking.dom.wrapper.querySelector(select.booking.starters);
-    thisBooking.dom.form = thisBooking.dom.wrapper.querySelector(select.bookingSubmit);
+    thisBooking.dom.form = thisBooking.dom.wrapper.querySelector(select.booking.form);
 
     thisBooking.dom.tablesContainer = thisBooking.dom.wrapper.querySelector(select.booking.allTables);
 
@@ -237,10 +236,13 @@ class Booking {
     });
 
     thisBooking.dom.tablesContainer.addEventListener('click', function(event){
-      thisBooking.initTables(event);
+      event.preventDefault();
+      if(event.target.classList.contains('table')) {
+        thisBooking.initTables(event.target);
+      }
     });
 
-    thisBooking.dom.submit.addEventListener('submit', function(event){
+    thisBooking.dom.form.addEventListener('submit', function(event){
       event.preventDefult(event);
       thisBooking.sendBooking();
     });
