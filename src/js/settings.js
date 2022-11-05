@@ -3,12 +3,14 @@ export const select = {
     menuProduct: '#template-menu-product',
     cartProduct: '#template-cart-product',
     bookingWidget: '#template-booking-widget',
+    homePage: '#template-home',
   },
   containerOf: {
     menu: '#product-list',
     cart: '#cart',
     pages: '#pages',
     booking: '.booking-wrapper',
+    home: '.home-wrapper',
   },
   all: {
     menuProducts: '#product-list > .product',
@@ -38,26 +40,31 @@ export const select = {
       input: 'input[type="range"]',
       output: '.output',
     },
+    flickity: {
+      carousel: '.main-carousel',
+    }
   },
+
   booking: {
     peopleAmount: '.people-amount',
     hoursAmount: '.hours-amount',
     tables: '.floor-plan .table',
     allTables: '.floor-plan',
-    form: '.booking-form',
     phone: '.order-confirmation [name="phone"]',
     address: '.order-confirmation [name="address"]',
     starters: '[name="starter"]',
+    submit: '.booking-form',
   },
+
   nav: {
     links: '.main-nav a',
   },
+
   cart: {
     productList: '.cart__order-summary',
     toggleTrigger: '.cart__summary',
     totalNumber: `.cart__total-number`,
-    totalPrice:
-      '.cart__total-price strong, .cart__order-total .cart__order-price-sum strong',
+    totalPrice: '.cart__total-price strong, .cart__order-total .cart__order-price-sum strong',
     subtotalPrice: '.cart__order-subtotal .cart__order-price-sum strong',
     deliveryFee: '.cart__order-delivery .cart__order-price-sum strong',
     form: '.cart__order',
@@ -71,6 +78,13 @@ export const select = {
     edit: '[href="#edit"]',
     remove: '[href="#remove"]',
   },
+
+  home: {
+    homeLinks: '.home-btn',
+  }
+
+
+  // CODE ADDED END
 };
 
 export const classNames = {
@@ -78,7 +92,7 @@ export const classNames = {
     wrapperActive: 'active',
     imageVisible: 'active',
   },
-
+  // CODE ADDED START
   cart: {
     wrapperActive: 'active',
   },
@@ -98,18 +112,21 @@ export const classNames = {
 export const settings = {
   amountWidget: {
     defaultValue: 1,
-    defaultMin: 0,
-    defaultMax: 10,
-  },
+    defaultMin: 1,
+    defaultMax: 9,
+  }, // CODE CHANGED
+  // CODE ADDED START
   cart: {
     defaultDeliveryFee: 20,
   },
   db: {
-    url: '//localhost:3131',
+    url: '//' + window.location.hostname + (window.location.hostname == 'localhost' ? ':3131' : ''),
     products: 'products',
     orders: 'orders',
-    bookings: 'bookings',
-    events: 'events',
+    product: 'product',
+    order: 'order',
+    booking: 'booking',
+    events: 'event',
     dateStartParamKey: 'date_gte',
     dateEndParamKey: 'date_lte',
     notRepeatParam: 'repeat=false',
@@ -125,18 +142,15 @@ export const settings = {
   booking: {
     tableIdAttribute: 'data-table',
   },
+
 };
 
 export const templates = {
-  menuProduct: Handlebars.compile(
-    document.querySelector(select.templateOf.menuProduct).innerHTML
-  ),
-  cartProduct: Handlebars.compile(
-    document.querySelector(select.templateOf.cartProduct).innerHTML
-  ),
-  bookingWidget: Handlebars.compile(
-    document.querySelector(select.templateOf.bookingWidget).innerHTML
-  ),
-  homePage: Handlebars.compile(document.querySelector(select.templateOf.homePage).innerHTML
-  ),
+  menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
+
+  cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
+
+  bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),
+
+  homePage: Handlebars.compile(document.querySelector(select.templateOf.homePage).innerHTML),
 };

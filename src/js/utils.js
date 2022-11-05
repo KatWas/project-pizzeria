@@ -18,14 +18,7 @@ utils.serializeFormToObject = function (form) {
   let output = {};
   if (typeof form == 'object' && form.nodeName == 'FORM') {
     for (let field of form.elements) {
-      if (
-        field.name &&
-        !field.disabled &&
-        field.type != 'file' &&
-        field.type != 'reset' &&
-        field.type != 'submit' &&
-        field.type != 'button'
-      ) {
+      if (field.name && !field.disabled && field.type != 'file' && field.type != 'reset' && field.type != 'submit' && field.type != 'button') {
         if (field.type == 'select-multiple') {
           for (let option of field.options) {
             if (option.selected) {
@@ -33,10 +26,7 @@ utils.serializeFormToObject = function (form) {
               output[field.name].push(option.value);
             }
           }
-        } else if (
-          (field.type != 'checkbox' && field.type != 'radio') ||
-          field.checked
-        ) {
+        } else if ((field.type != 'checkbox' && field.type != 'radio') || field.checked) {
           utils.createPropIfUndefined(output, field.name);
           output[field.name].push(field.value);
         } else if (!output[field.name]) output[field.name] = [];
@@ -52,12 +42,11 @@ utils.convertDataSourceToDbJson = function () {
     productJson.push(Object.assign({ id: key }, dataSource.products[key]));
   }
 
-  console.log(dataSource);
   console.log(JSON.stringify({ product: productJson, order: [] }, null, '  '));
 };
 
 Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
-  return arg1 == arg2 ? options.fn(this) : options.inverse(this);
+  return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
 
 Handlebars.registerHelper('joinValues', function (input, options) {
@@ -66,13 +55,11 @@ Handlebars.registerHelper('joinValues', function (input, options) {
 
 utils.queryParams = function (params) {
   return Object.keys(params)
-    .map((k) => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+    .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
     .join('&');
 };
 utils.numberToHour = function (number) {
-  return (
-    (Math.floor(number) % 24) + ':' + ((number % 1) * 60 + '').padStart(2, '0')
-  );
+  return (Math.floor(number) % 24) + ':' + (number % 1 * 60 + '').padStart(2, '0');
 };
 
 utils.hourToNumber = function (hour) {
